@@ -1,18 +1,28 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-import time
+from locators import DoskaLocators
+from data import EMAIL_EXIST_USER, PASSWORD
 
-def test_login(driver):
-    driver.get("https://qa-desk.stand.praktikum-services.ru/")
 
-# Авторизация
-    driver.find_element(By.XPATH, ".//button[text()='Вход и регистрация']").click()
-    time.sleep(1)
-    assert "/login" in driver.current_url
+class Testlogin:
+    def test_login(self, driver):
 
-    driver.find_element(By.NAME, "email").send_keys("galahova_31@mail.ru")
-    driver.find_element(By.NAME, "password").send_keys("123456")
-    driver.find_element(By.XPATH, ".//button[text()='Войти']").click()
+        # Авторизация
+        driver.find_element(*DoskaLocators.LOGIN_AND_REGISTRATION).click()
+        WebDriverWait(driver, 3).until(
+            expected_conditions.presence_of_element_located(
+                (By.XPATH, ".//form[@class='popUp_shell__LuyqR']")
+            )
+        )
+        driver.find_element(*DoskaLocators.EMAIL).send_keys(EMAIL_EXIST_USER)
+        driver.find_element(*DoskaLocators.PASSWORD).send_keys(PASSWORD)
+        driver.find_element(*DoskaLocators.LOGIN_BUTTON).click()
 
-    WebDriverWait(driver, 3).until(expected_conditions.visibility_of_element_located((By.CLASS_NAME, "circleSmall")))
+        WebDriverWait(driver, 3).until(
+            expected_conditions.visibility_of_element_located(
+                (By.CLASS_NAME, "circleSmall")
+            )
+        )
+
+        assert driver.find_element(By.CLASS_NAME, "circleSmall").is_displayed() is True

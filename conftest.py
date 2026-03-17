@@ -1,15 +1,12 @@
 import pytest
-import time
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from data import URL
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome(service=Service("/Users/elena/WebDriver/bin/chromedriver"))
+    driver = webdriver.Chrome()
     driver.maximize_window()
-    
-    # Передаем драйвер в тест
+    driver.get(URL)
     yield driver
-
-    time.sleep(3) 
     driver.quit()
+    

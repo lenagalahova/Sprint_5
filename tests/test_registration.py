@@ -13,7 +13,7 @@ class TestRegistration:
         driver.find_element(*DoskaLocators.LOGIN_AND_REGISTRATION).click()
         WebDriverWait(driver, 3).until(
             expected_conditions.presence_of_element_located(
-                (By.XPATH, ".//form[@class='popUp_shell__LuyqR']")
+                DoskaLocators.POPAP_TO_LOGIN
             )
         )
         driver.find_element(*DoskaLocators.BUTTON_NO_ACCAUNT).click()
@@ -32,8 +32,8 @@ class TestRegistration:
 
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located(
-                (By.CLASS_NAME, "circleSmall")
+                DoskaLocators.CIRCLE_PROFIL
             )
         )
 
-        assert driver.find_element(By.CLASS_NAME, "circleSmall").is_displayed() is True
+        assert driver.find_element(*DoskaLocators.CIRCLE_PROFIL).is_displayed() is True

@@ -12,7 +12,7 @@ class TestAnValidEmail:
         driver.find_element(*DoskaLocators.LOGIN_AND_REGISTRATION).click()
         WebDriverWait(driver, 3).until(
             expected_conditions.presence_of_element_located(
-                (By.XPATH, ".//form[@class='popUp_shell__LuyqR']")
+                DoskaLocators.POPAP_TO_LOGIN
             )
         )
         driver.find_element(*DoskaLocators.BUTTON_NO_ACCAUNT).click()
@@ -26,10 +26,10 @@ class TestAnValidEmail:
 
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located(
-                (By.CLASS_NAME, "input_span__yWPqB")
+                DoskaLocators.ERROR_OF_REGISTRATION
             )
         )
         assert (
-            driver.find_element(By.CLASS_NAME, "input_span__yWPqB").is_displayed()
+            driver.find_element(*DoskaLocators.ERROR_OF_REGISTRATION).is_displayed()
             is True
         )

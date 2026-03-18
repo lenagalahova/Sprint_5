@@ -10,12 +10,10 @@ class TestCreateCardAutUser:
         driver.find_element(*DoskaLocators.BUTTON_CREATE_CARD).click()
         WebDriverWait(driver, 3).until(
             expected_conditions.visibility_of_element_located(
-                (By.XPATH, ".//h1[text()='Чтобы разместить объявление, авторизуйтесь']")
+                DoskaLocators.POPUP_FOR_AUTORIZATION
             )
         )
         assert (
-            driver.find_element(
-                By.XPATH, ".//h1[text()='Чтобы разместить объявление, авторизуйтесь']"
-            ).is_displayed()
+            driver.find_element(*DoskaLocators.POPUP_FOR_AUTORIZATION).is_displayed()
             is True
         )
